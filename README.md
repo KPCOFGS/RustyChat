@@ -4,8 +4,6 @@ RustyChat is a lightweight, desktop chat UI written in Rust using Dioxus. It pro
 
 This project is intended as a compact, privacy-friendly GUI wrapper around local model hosting via Ollama.
 
----
-
 ## Features
 
 - Desktop chat UI built with Dioxus.
@@ -13,8 +11,6 @@ This project is intended as a compact, privacy-friendly GUI wrapper around local
 - Model selection populated from Ollama's `/api/tags` endpoint.
 - Settings modal to configure model, system prompt, temperature, top_p, max_tokens, and zoom.
 - Dark theme with careful styling and responsive layout.
-
----
 
 ## Powered by
 
@@ -30,8 +26,6 @@ You can test the model list with:
 ```bash
 curl http://localhost:11434/api/tags
 ```
-
----
 
 ## Crates used and what they do
 
@@ -53,8 +47,6 @@ These crates are chosen for their ergonomics and small, practical APIs for a loc
 - Settings are persisted in a `settings` table (single-row, id=1).
 - The UI keeps a small in-memory buffer of the currently-viewed chat's messages for immediate responsiveness, but assistant responses are always written to the DB. Assistant replies are only pushed into the in-memory buffer if the user is still viewing that chat when the response arrives. This prevents replies from "appearing" in the wrong visible chat.
 - When interrupting a running request, the in-flight HTTP call is allowed to complete, but the code marks the request as cancelled and simply discards the final assistant output (no interruption message is inserted). The UI removes the "Thinking..." indicator immediately for a responsive feel.
-
----
 
 ## Build & Run
 
@@ -87,20 +79,14 @@ Notes:
 
 - The app creates/uses `chat.db` in the `./target/dx/rusty-chat/release/linux/app/` directory. Backup if necessary before deleting.
 
----
-
 ## Screenshots
 
 [!screenshot1](./assets/Screenshot1.png)
 [!screenshot2](./assets/Screenshot2.png)
 
----
-
 ## Contribution
 
 Contributions welcome. Please open issues or PRs for bugs, feature requests, or improvements.
-
----
 
 ## License
 
