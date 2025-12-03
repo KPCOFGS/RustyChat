@@ -88,4 +88,4 @@ Contributions welcome. Please open issues or PRs for bugs, feature requests, or 
 
 ## License
 
-This project is licensed under the MIT license. See [LICENSE](./LICENSE) file for more details.
+This project is licensed under the MIT License. See [LICENSE](./LICENSE) file for more details.
