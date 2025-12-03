@@ -717,7 +717,7 @@ fn Sidebar(
                     span { class: "settings-icon", "⚙️" }
                     span { class: "settings-tooltip", "Settings" }
                 }
-                a { class: "repo-icon", href: "https://github.com/your-username/your-repo", target: "_blank", title: "click here to see the repository", "🔗" }
+                a { class: "repo-icon", href: "https://github.com/KPCOFGS/RustyChat", target: "_blank", title: "click here to see the repository", "🔗" }
             }
         }
     }
