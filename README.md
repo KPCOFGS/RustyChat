@@ -21,7 +21,7 @@ This project is intended as a compact, privacy-friendly GUI wrapper around local
 - Dioxus — desktop RUST UI framework
 - Ollama — local model hosting backend used for inference
 
-If you haven't installed Ollama, please visit https://ollama.ai and follow their installation instructions. The app expects Ollama to be available at:
+If you haven't installed Ollama, please visit https://ollama.com/ and follow their installation instructions. The app expects Ollama to be available at:
 
 - http://localhost:11434
 
@@ -68,8 +68,8 @@ Requirements:
 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/KPCOFGS/RustyChat.git
+cd RustyChat
 ```
 
 2. Run
@@ -85,20 +85,14 @@ dx build --release
 ```
 Notes:
 
-- The app creates/uses `chat.db` in the current working directory. Backup if necessary before deleting.
+- The app creates/uses `chat.db` in the `./target/dx/rusty-chat/release/linux/app/` directory. Backup if necessary before deleting.
 
 ---
 
 ## Screenshots
 
-Include screenshots in your repository at `assets/screenshots/` and reference them here.
-
-- assets/screenshots/1-overview.png — Main RustyChat window (sidebar + chat)
-- assets/screenshots/2-settings.png — Settings modal with model selector
-- assets/screenshots/3-rename-chat.png — Inline rename UI
-- assets/screenshots/4-interrupt.png — Interrupt button (while model is thinking)
-
-If you add screenshots, replace the placeholders above with the actual file names and include them in the repo.
+[!screenshot1](./assets/Screenshot1.png)
+[!screenshot2](./assets/Screenshot2.png)
 
 ---
 
@@ -109,3 +103,5 @@ Contributions welcome. Please open issues or PRs for bugs, feature requests, or 
 ---
 
 ## License
+
+This project is licensed under the MIT license. See [LICENSE](./LICENSE) file for more details.
