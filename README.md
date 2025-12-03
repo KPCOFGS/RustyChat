@@ -27,6 +27,11 @@ You can test the model list with:
 curl http://localhost:11434/api/tags
 ```
 
+## Screenshots
+
+![screenshot1](./assets/Screenshot1.png)
+![screenshot2](./assets/Screenshot2.png)
+
 ## Crates used and what they do
 
 - dioxus (and dioxus-desktop): UI framework used to build the desktop application and components.
@@ -37,8 +42,6 @@ curl http://localhost:11434/api/tags
 - tokio (indirect / runtime used by Dioxus): asynchronous runtime used by async networking.
 
 These crates are chosen for their ergonomics and small, practical APIs for a local GUI chat app.
-
----
 
 ## How it works
 
@@ -78,11 +81,6 @@ dx build --release
 Notes:
 
 - The app creates/uses `chat.db` in the `./target/dx/rusty-chat/release/linux/app/` directory. Backup if necessary before deleting.
-
-## Screenshots
-
-[!screenshot1](./assets/Screenshot1.png)
-[!screenshot2](./assets/Screenshot2.png)
 
 ## Contribution
 
