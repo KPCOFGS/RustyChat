@@ -29,8 +29,8 @@ curl http://localhost:11434/api/tags
 
 ## Screenshots
 
-![screenshot1](./assets/Screenshot1.png)
-![screenshot2](./assets/Screenshot2.png)
+![screenshot1](./assets/screenshot-1.png)
+![screenshot2](./assets/screenshot-2.png)
 
 ## Crates used and what they do
 
