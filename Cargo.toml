@@ -1,0 +1,23 @@
+[package]
+name = "rusty-chat"
+version = "0.1.0"
+authors = ["KPCOFGS <shixian_sheng-2@protonmail.com>"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dioxus = { version = "0.7.1", features = [] }
+rusqlite = { version = "0.37.0", features = ["bundled"]}
+uuid = { version = "1.19.0", features = ["v4"] }
+tokio = { version = "1.48.0", features = ["full"] }
+reqwest = { version = "0.12", features = ["json"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+futures-util = "0.3"
+
+[features]
+default = ["desktop"]
+web = ["dioxus/web"]
+desktop = ["dioxus/desktop"]
+mobile = ["dioxus/mobile"]

@@ -1,0 +1,642 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: Inter, system-ui, sans-serif;
+    background: #101217; /* slightly lighter dark background */
+    color: rgba(255, 255, 255, 0.92);
+}
+
+/* Outer wrapper (handles maximized vs fixed size) */
+.outer-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* app-container should fit the wrapper, not overflow */
+.app-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: #141419; /* a touch lighter canvas */
+    color: rgba(255, 255, 255, 0.92);
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background: #15161a; /* lighter sidebar than before */
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-sizing: border-box;
+    border-right: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* Ensure all elements inside modal obey box-sizing so width calculations are predictable */
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+.logo {
+    margin: 0 0 12px 0;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 20px;
+}
+
+/* Make core action buttons larger for prominence */
+.new-chat-btn.big {
+    background: #1f2023;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.95);
+    cursor: pointer;
+    margin-bottom: 12px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Chat list: allow scrolling but hide the visible scrollbar (still scrollable) */
+.chat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    flex: 1;
+    padding-right: 8px; /* keep a little space for content so it doesn't feel cramped */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+/* Hide webkit scrollbars while keeping scroll functional */
+.chat-list::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+.chat-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+.chat-list::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+/* Chat item is a little taller and roomier */
+.chat-item {
+    padding: 14px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #1a1b1e;
+    color: rgba(255, 255, 255, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-height: 56px;
+    box-sizing: border-box;
+}
+
+.chat-item:hover {
+    background: #232427;
+}
+
+/* Controls inside chat item */
+.chat-item-row {
+    display: block;
+    padding: 4px;
+}
+
+.chat-item-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chat-title {
+    flex: 1;
+    font-size: 15px; /* slightly larger text for titles */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* Align actions (rename/delete) inline to the right */
+.chat-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+/* Small input styles */
+.rename-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.rename-input {
+    padding: 8px;
+    border-radius: 6px;
+    background: #151617;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    min-width: 140px;
+    max-width: 100%;
+}
+
+.rename-save,
+.rename-cancel {
+    padding: 6px 8px;
+    border-radius: 6px;
+    background: #2a2b2f;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+/* Sidebar footer (bottom-left small controls) */
+.sidebar-footer {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 12px;
+}
+
+/* Settings button larger with tooltip label shown on hover */
+.settings-btn.big {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.95);
+    padding: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.settings-icon {
+    pointer-events: none;
+}
+
+/* Hidden tooltip text */
+.settings-tooltip {
+    margin-left: 8px;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: all 120ms ease;
+    pointer-events: none;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+}
+
+/* Reveal tooltip on hover */
+.settings-btn.big:hover .settings-tooltip {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Repo icon with tooltip on hover (title attribute is shown by browser) */
+.repo-icon {
+    color: rgba(255, 255, 255, 0.85);
+    background: transparent;
+    padding: 6px 8px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.12s;
+    font-size: 18px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Delete button bigger and clearer */
+.delete-chat-btn.big {
+    background: #a03030; /* slightly brighter red */
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+/* Smaller rename button */
+.rename-btn {
+    background: #2a2b2f;
+    color: #fff;
+    border: none;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+/* Chat Window */
+.chat-window {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #121317; /* slightly lighter */
+    min-width: 0; /* allow flex children to shrink properly */
+}
+.model-indicator {
+    margin: 4px 0 0 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 13px;
+    opacity: 0.95;
+}
+
+/* Make the model text slightly muted on small screens and truncate if too long */
+.model-indicator {
+    max-width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Ensure header spacing looks good */
+.chat-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.96);
+}
+.chat-header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* Messages (chat history area) - make it a bit longer/spacious */
+.chat-messages {
+    flex: 1;
+    padding: 32px; /* increased padding so history feels longer */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px; /* larger gaps between messages for readability */
+    min-width: 0;
+}
+
+/* Message bubble sizes - a bit more vertical space to make messages "longer" */
+.message {
+    max-width: 70%;
+    padding: 14px 18px;
+    border-radius: 12px;
+    line-height: 1.6;
+}
+
+/* Dim text for all messages */
+.dim-text {
+    color: rgba(255, 255, 255, 0.86);
+    opacity: 0.96;
+}
+
+.user-message {
+    background: #151617;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    align-self: flex-end;
+}
+
+.assistant-message {
+    background: #1c1d20;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    align-self: flex-start;
+}
+
+/* Think bubble */
+.think-bubble {
+    background: rgba(40, 40, 50, 0.22);
+    border: 1px solid rgba(100, 100, 130, 0.12);
+    border-radius: 8px;
+    margin: 10px 0;
+    padding: 12px;
+    font-family: "Monaco", "Consolas", monospace;
+    font-size: 0.95em;
+    white-space: pre-wrap;
+}
+
+/* Loading message */
+.loading-message {
+    opacity: 0.92;
+}
+
+.loading-dots {
+    display: inline-flex;
+    margin-left: 8px;
+}
+
+.loading-dots::after {
+    content: "...";
+    animation: dots 1.5s steps(4, end) infinite;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+@keyframes dots {
+    0%,
+    20% {
+        content: ".";
+    }
+    40% {
+        content: "..";
+    }
+    60%,
+    100% {
+        content: "...";
+    }
+}
+
+/* Input area */
+.chat-input-area {
+    display: flex;
+    padding: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    gap: 12px;
+    align-items: center;
+}
+
+/* Make placeholder and typed text larger for better readability */
+.chat-input {
+    flex: 1;
+    resize: none;
+    padding: 16px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: #151617;
+    color: rgba(255, 255, 255, 0.95);
+    min-height: 56px;
+    max-height: 260px;
+    font-size: 16px; /* larger text for input */
+}
+
+.chat-input::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 16px; /* larger placeholder text */
+}
+
+/* Make send button larger */
+.send-button.big {
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: none;
+    background: #22d586; /* slightly brighter green */
+    color: rgba(255, 255, 255, 0.95);
+    cursor: pointer;
+    font-size: 15px;
+    height: 60px; /* Explicit height if needed */
+    min-height: 60px;
+}
+
+.send-button.big:disabled {
+    background: #2a2b32;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Settings modal overlay (centered popup) */
+.settings-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.66);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+/* Modal
+   - display block but make the modal itself scrollable so content never escapes the box
+   - use position:relative so sticky/pinned actions work reliably
+*/
+.settings-modal {
+    width: 520px;
+    max-width: 94%;
+    max-height: 86vh; /* vh so sticky bottom calculation matches viewport */
+    overflow-y: auto; /* make the modal body scrollable when content is long */
+    background: #0f1013;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    color: rgba(255, 255, 255, 0.95);
+    position: relative;
+    display: block;
+}
+
+/* ensure header doesn't shrink and stays visible above scroll if needed */
+.settings-modal h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+/* Controls inside modal */
+/* Ensure the select (model selector) is dark themed with light text and doesn't overflow */
+.input,
+.textarea,
+select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #0b0c0e; /* darker select/input background */
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.95); /* light text */
+    margin-bottom: 12px;
+    font-size: 13px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    /* prevent long content from escaping; wrap and break as needed */
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* For better contrast on options (note: option styling is browser-limited) */
+select option {
+    background: #0b0c0e;
+    color: #fff;
+}
+
+/* Make textarea preserve wrapping and avoid causing modal overflow horizontally */
+.textarea {
+    min-height: 100px;
+    resize: vertical;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    max-width: 100%;
+}
+
+/* labels, paragraphs and other inline text should wrap instead of extending the modal width */
+.settings-modal label,
+.settings-modal p,
+.settings-modal .warning-text {
+    display: block;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Row layout helpers */
+.row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+/* Modal action area
+   - Make modal actions sticky to the bottom of the scrollable modal so they remain accessible
+   - Delete All is pushed to left via margin-right:auto; Apply/Cancel remain on the right
+*/
+.modal-actions {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 4px 0 0; /* top padding to separate from content; right padding to align buttons nicely */
+    background: linear-gradient(
+        to bottom,
+        rgba(15, 16, 19, 0),
+        rgba(15, 16, 19, 0.95)
+    ); /* subtle fade so actions stand out when scrolled */
+    backdrop-filter: blur(4px);
+    box-sizing: border-box;
+}
+
+/* Push delete-all to the far left of the action row */
+.modal-actions .delete-all {
+    margin-right: auto;
+    margin-left: 0;
+    background: #7f2020;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Apply and Cancel buttons: dark theme with subtle border and aligned to bottom-right via flex layout */
+.modal-actions button:not(.delete-all) {
+    background: #1b1b1f;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Hover state for non-danger buttons */
+.modal-actions button:not(.delete-all):hover {
+    filter: brightness(1.05);
+}
+
+/* Delete all button hover (keep prominent) */
+.modal-actions .delete-all:hover {
+    filter: brightness(1.03);
+}
+
+/* Zoom row and other modal controls keep previous styles */
+.zoom-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.zoom-row button {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: none;
+    background: #1b1b1f;
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+}
+
+/* -------------------------
+   chat-messages scrollbar (visible for usability)
+   ------------------------- */
+
+/* Webkit */
+.chat-messages::-webkit-scrollbar {
+    width: 10px;
+}
+.chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+.chat-messages::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    opacity: 0.9;
+}
+
+/* Firefox */
+.chat-list,
+.chat-messages {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.06) transparent;
+}
+.interrupt-button.big {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: none;
+    background: #ff6b6b; /* visible red */
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px; /* Explicit height if needed */
+    min-height: 60px;
+}
+
+.interrupt-button.big:hover {
+    filter: brightness(1.05);
+}
+
+.interrupt-button.big:disabled {
+    background: #6a2f2f;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+/* Make sure buttons in chat-input-area keep consistent heights */
+.chat-input-area .send-button.big,
+.chat-input-area .interrupt-button.big {
+    height: 44px;
+}
+
+/* When both Interrupt and Send are present, place Interrupt to the left of Send with small gap */
+.chat-input-area .interrupt-button.big {
+    margin-right: 6px;
+}
+
+/* Disabled send button when some other chat is loading kept as prior */
+.send-button.big:disabled {
+    background: #2a2b32;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Keep overall dark theme consistent for control buttons */
+button {
+    font-family: Inter, system-ui, sans-serif;
+}
